@@ -70,7 +70,11 @@ def best_move():
                 best_score = score
                 move = i
     return move
-
+        def best_move():
+            best_score = -float('inf') 
+            move = -1                  
+            for i in range(9):       
+        # ... and so on
 # The Game Loop
 while True:
     print_board()
@@ -89,5 +93,6 @@ while True:
         if check_winner('O'): print("AI wins!"); break
     else:
         print("It's a draw!"); break
-        def best_move():
+   
+
     
