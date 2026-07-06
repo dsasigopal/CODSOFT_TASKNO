@@ -35,3 +35,26 @@ def check_winner(player):
 
 def check_draw():
     return ' ' not in board
+def minimax(board, depth, is_maximizing):
+    if check_winner('O'): return 10 - depth
+    if check_winner('X'): return depth - 10
+    if check_draw(): return 0
+
+    if is_maximizing:
+        best_score = -float('inf')
+        for i in range(9):
+            if board[i] == ' ':
+                board[i] = 'O'
+                score = minimax(board, depth + 1, False)
+                board[i] = ' '
+                best_score = max(score, best_score)
+        return best_score
+    else:
+        best_score = float('inf')
+        for i in range(9):
+            if board[i] == ' ':
+                board[i] = 'X'
+                score = minimax(board, depth + 1, True)
+                board[i] = ' '
+                best_score = min(score, best_score)
+        return best_score
