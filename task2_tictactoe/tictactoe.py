@@ -1,15 +1,11 @@
-# Simple Tic-Tac-Toe Board
+# Initialize the board
 board = [' ' for _ in range(9)]
 
 def print_board():
-    print(f"{board[0]}|{board[1]}|{board[2]}")
-    print("-+-+-")
-    print(f"{board[3]}|{board[4]}|{board[5]}")
-    print("-+-+-")
-    print(f"{board[6]}|{board[7]}|{board[8]}")
-
-# Test the board display
-print_board()
+    for i in range(0, 9, 3):
+        print(f"{board[i]} | {board[i+1]} | {board[i+2]}")
+        if i < 6:
+            print("--+---+--")
 
 def make_move(position, player):
     if board[position] == ' ':
@@ -17,29 +13,21 @@ def make_move(position, player):
         return True
     return False
 
-# Example: Player 'X' makes a move at position 4 (the center)
-make_move(4, 'X')
-print_board()
-
 def check_winner(player):
-    # Winning combinations (rows, columns, diagonals)
-    win_conditions = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8], # Rows
-        [0, 3, 6], [1, 4, 7], [2, 5, 8], # Columns
-        [0, 4, 8], [2, 4, 6]             # Diagonals
-    ]
-    for condition in win_conditions:
-        if all(board[i] == player for i in condition):
+    win_conditions = [(0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6)]
+    for a, b, c in win_conditions:
+        if board[a] == board[b] == board[c] == player:
             return True
     return False
 
 def check_draw():
     return ' ' not in board
-def minimax(board, depth, is_maximizing):
-    if check_winner('O'): return 10 - depth
-    if check_winner('X'): return depth - 10
-    if check_draw(): return 0
 
+def minimax(board, depth, is_maximizing):
+    if check_winner('O'): return 1
+    if check_winner('X'): return -1
+    if check_draw(): return 0
+    
     if is_maximizing:
         best_score = -float('inf')
         for i in range(9):
@@ -58,6 +46,7 @@ def minimax(board, depth, is_maximizing):
                 board[i] = ' '
                 best_score = min(score, best_score)
         return best_score
+
 def best_move():
     best_score = -float('inf')
     move = -1
@@ -70,24 +59,32 @@ def best_move():
                 best_score = score
                 move = i
     return move
+
 # The Game Loop
 while True:
     print_board()
     
     # Human turn
-    pos = int(input("Choose your position (0-8): "))
-    if make_move(pos, 'X'):
-        if check_winner('X'): print("You win!"); break
-    else:
-        print("Invalid move!"); continue
+    try:
+        pos = int(input("Choose your position (0-8): "))
+        if make_move(pos, 'X'):
+            if check_winner('X'): 
+                print_board()
+                print("You win!"); break
+        else:
+            print("Invalid move!"); continue
+    except ValueError:
+        print("Please enter a number between 0 and 8."); continue
 
     # AI turn
     if not check_draw():
         ai_pos = best_move()
         make_move(ai_pos, 'O')
-        if check_winner('O'): print("AI wins!"); break
+        if check_winner('O'): 
+            print_board()
+            print("AI wins!"); break
     else:
+        print_board()
         print("It's a draw!"); break
-   
 
     
