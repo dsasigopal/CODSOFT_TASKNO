@@ -70,10 +70,10 @@ def best_move():
                 best_score = score
                 move = i
     return move
-        def best_move():
-            best_score = -float('inf') 
-            move = -1                  
-            for i in range(9):       
+    def best_move():
+        best_score = -float('inf') 
+        move = -1                  
+        for i in range(9):       
         # ... and so on
 # The Game Loop
 while True:
