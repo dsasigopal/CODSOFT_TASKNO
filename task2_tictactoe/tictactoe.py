@@ -58,3 +58,34 @@ def minimax(board, depth, is_maximizing):
                 board[i] = ' '
                 best_score = min(score, best_score)
         return best_score
+def best_move():
+    best_score = -float('inf')
+    move = -1
+    for i in range(9):
+        if board[i] == ' ':
+            board[i] = 'O'
+            score = minimax(board, 0, False)
+            board[i] = ' '
+            if score > best_score:
+                best_score = score
+                move = i
+    return move
+
+# The Game Loop
+while True:
+    print_board()
+    
+    # Human turn
+    pos = int(input("Choose your position (0-8): "))
+    if make_move(pos, 'X'):
+        if check_winner('X'): print("You win!"); break
+    else:
+        print("Invalid move!"); continue
+
+    # AI turn
+    if not check_draw():
+        ai_pos = best_move()
+        make_move(ai_pos, 'O')
+        if check_winner('O'): print("AI wins!"); break
+    else:
+        print("It's a draw!"); break
