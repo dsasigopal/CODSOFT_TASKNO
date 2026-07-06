@@ -89,3 +89,15 @@ while True:
         if check_winner('O'): print("AI wins!"); break
     else:
         print("It's a draw!"); break
+        def best_move():
+    best_score = -float('inf')
+    move = -1
+    for i in range(9):
+        if board[i] == ' ':
+            board[i] = 'O'
+            score = minimax(board, 0, False)
+            board[i] = ' '
+            if score > best_score:
+                best_score = score
+                move = i
+    return move
