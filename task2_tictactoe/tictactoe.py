@@ -10,3 +10,13 @@ def print_board():
 
 # Test the board display
 print_board()
+
+def make_move(position, player):
+    if board[position] == ' ':
+        board[position] = player
+        return True
+    return False
+
+# Example: Player 'X' makes a move at position 4 (the center)
+make_move(4, 'X')
+print_board()
