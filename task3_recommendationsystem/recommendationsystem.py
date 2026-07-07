@@ -10,13 +10,15 @@ def recommend(target_user, data):
     seen = set(data[target_user].keys())
     not_seen = all_movies - seen
     
-    if target_user == 'User1':
-        best_match = 'User2'
-    else:
-        best_match = 'User1'
+    # We will just look at User2 to recommend to User1
+    best_match = 'User2'
         
     for movie in not_seen:
         if data[best_match].get(movie, 0) > 3:
+            # Print directly inside the function
             print(f"Recommended for {target_user}: {movie}")
+            return # Exit after finding one
+    print("No recommendations found.")
 
+# Call the function without printing its return value, since it prints inside
 recommend('User1', data)
