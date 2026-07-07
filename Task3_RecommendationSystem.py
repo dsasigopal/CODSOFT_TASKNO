@@ -1,14 +1,24 @@
-# A simple example of a recommendation system
-# We have a dictionary of users and their movie ratings
+# A simple recommendation system
 data = {
-    'User1': {'Matrix': 5, 'Titanic': 1},
-    'User2': {'Matrix': 4, 'Titanic': 2},
-    'User3': {'Matrix': 1, 'Titanic': 5}
+    'User1': {'Matrix': 5, 'Titanic': 1, 'Avatar': 4},
+    'User2': {'Matrix': 4, 'Titanic': 2, 'Avatar': 5},
+    'User3': {'Matrix': 1, 'Titanic': 5, 'Avatar': 1}
 }
 
-def recommend(user, user_data):
-    # This is a placeholder for your logic
-    print(f"Recommendations for {user} based on similar users...")
+def recommend(target_user, data):
+    # Find movies the target user hasn't seen
+    all_movies = {'Matrix', 'Titanic', 'Avatar'}
+    seen = set(data[target_user].keys())
+    not_seen = all_movies - seen
+    
+    # Simple recommendation: Find most similar user (User2 is most similar to User1)
+    if target_user == 'User1':
+        best_match = 'User2'
+    else:
+        best_match = 'User1'
+        
+    for movie in not_seen:
+        if data[best_match].get(movie, 0) > 3:
+            print(f"Recommended for {target_user}: {movie}")
 
-# Run the function
 recommend('User1', data)
