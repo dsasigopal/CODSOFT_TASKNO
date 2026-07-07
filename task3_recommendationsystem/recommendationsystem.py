@@ -1,7 +1,8 @@
 # A simple recommendation system
+# Change this part of your code in the file:
 data = {
-    'User1': {'Matrix': 5, 'Titanic': 1, 'Avatar': 4},
-    'User2': {'Matrix': 4, 'Titanic': 2, 'Avatar': 5},
+    'User1': {'Matrix': 5, 'Titanic': 1}, # Avatar is not seen
+    'User2': {'Matrix': 4, 'Titanic': 2, 'Avatar': 5}, # User2 rated Avatar 5
     'User3': {'Matrix': 1, 'Titanic': 5, 'Avatar': 1}
 }
 
