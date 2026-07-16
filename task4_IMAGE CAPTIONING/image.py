@@ -33,3 +33,12 @@ class DecoderRNN(nn.Module):
 # 3. INITIALIZATION
 encoder = EncoderCNN()
 decoder = DecoderRNN(embed_size=256, hidden_size=512, vocab_size=1000)
+# Create a dummy image (1 channel, 3 color channels, 224x224 size)
+dummy_image = torch.randn(1, 3, 224, 224)
+
+# Run it through the encoder
+encoder.eval() # Set to evaluation mode
+with torch.no_grad():
+    features = encoder(dummy_image)
+
+print("Image successfully processed! Feature vector shape:", features.shape)
