@@ -42,3 +42,11 @@ with torch.no_grad():
     features = encoder(dummy_image)
 
 print("Image successfully processed! Feature vector shape:", features.shape)
+import matplotlib.pyplot as plt
+from PIL import Image
+
+# Open and show the image
+img = Image.open("test.jpg")
+plt.imshow(img)
+plt.axis('off')
+plt.show()
